@@ -1,33 +1,72 @@
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.*;
+import java.util.Scanner;
 
 public class NeighborhoodLibrary {
-    public static void main(String[] args){
-        //create my array list to store books
-        ArrayList<Book> library = new ArrayList<>();
+    public static void main(String[] args) {
+        //add at least 20 books - added to a CSV file
 
-        //add at least 20 books
-        Collections.addAll(library, new Book(1,  "The Hitchhiker's Guide to the Galaxy", "978-0-330-25864-8"),
-        new Book(2,  "1984",                                  "978-0-451-52493-5"),
-        new Book(3,  "To Kill a Mockingbird",                 "978-0-06-112008-4"),
-        new Book(4,  "The Great Gatsby",                      "978-0-7432-7356-5"),
-        new Book(5,  "Brave New World",                       "978-0-06-092987-6"),
-        new Book(6,  "The Catcher in the Rye",               "978-0-316-76948-0"),
-        new Book(7,  "Pride and Prejudice",                   "978-0-14-143951-8"),
-        new Book(8,  "The Lord of the Rings",                 "978-0-618-64015-7"),
-        new Book(9,  "Harry Potter and the Philosopher's Stone", "978-0-7475-3269-9"),
-        new Book(10, "The Alchemist",                         "978-0-06-231609-7"),
-        new Book(11, "Crime and Punishment",                  "978-0-14-044913-6"),
-        new Book(12, "The Hobbit",                            "978-0-618-00221-3"),
-        new Book(13, "Moby-Dick",                             "978-0-14-243723-9"),
-        new Book(14, "Jane Eyre",                             "978-0-14-144114-6"),
-        new Book(15, "Dune",                                  "978-0-441-17271-9"),
-        new Book(16, "The Da Vinci Code",                     "978-0-385-50420-5"),
-        new Book(17, "The Hunger Games",                      "978-0-439-02352-8"),
-        new Book(18, "Animal Farm",                           "978-0-452-28424-1"),
-        new Book(19, "Fahrenheit 451",                        "978-1-4516-7331-9"),
-        new Book(20, "The Shining",                           "978-0-385-12167-5"));
+        //create a home screen
+        Scanner input = new Scanner(System.in);
+        boolean appOpen = true;
+        String fileName = "library.csv";
 
-        System.out.println("Print out all the ");
+        while (appOpen) {
+            System.out.println("---------Neighborhood Library---------");
+            System.out.println("1 - Show Available Books - type A");
+            System.out.println("2 - Show Checked out Books - type C");
+            System.out.println("3 - Exit - type X");
+            System.out.println("Choose an option: ");
+            String choice = input.next().toString().trim();
+
+
+            if (choice.equalsIgnoreCase("a")){
+                showAvailableBooks(fileName);
+            }
+
+        }
     }
-}
+        //Show Available Books and checkout if they want to; otherwise display home page
+        public static void showAvailableBooks(String fileName) {
+            System.out.println("\n -----------------Available books-----------------");
+            System.out.printf("%-5s %-45s %-20s%n", "ID", "Title", "ISBN");
+            System.out.println("-".repeat(30));
+
+            try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
+                br.readLine();
+                String line;
+                while ((line = br.readLine()) != null){
+                    String[] values = line.split(",");
+
+                    int id = Integer.parseInt(values[0].trim());
+                    String title = values[1].trim();
+                    String isbn = values[2].trim();
+
+                    System.out.printf("%-5d %-45s %-20s%n", id, title, isbn);
+                }
+            }catch(Exception e){
+                System.out.println("Error: "+ e.getMessage().toString());
+            }
+            }
+        }
+
+    //
+
+
+//    //checkout books method.
+//    public static void checkOutBook(ArrayList<Book> library, int id, String title, String isbn){
+//        //ask who to check out to assign the name
+//        Scanner input  = new Scanner(System.in);
+//        System.out.println("Who do we check this out to?");
+//        String name = input.nextLine();
+//
+//        for (Book book : library){
+//          if (book.getId() == id){
+//              book.checkOut(name);
+//              System.out.println(book + " has been checked out to" + name );
+//            }
+//
+//        }
+//    }
+//
+//
+//}
