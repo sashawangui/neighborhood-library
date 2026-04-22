@@ -15,9 +15,49 @@ public class Book {
 
     }
 
-    //method to assign a checkout to an individual
+    //method to assign a checkout to an individual and remove book from library
+    public void checkOut(String name){
+        if(!isCheckout){
+            this.isCheckout = true;
+            this.checkedOutTo = name;
+        }
+    }
 
+    public void checkIn(){
+        if(isCheckout){
+            this.isCheckout = false;
+            this.checkedOutTo = "";
+        }
+    }
 
+    //setters
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    //getters
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public boolean isCheckout(){
+        return isCheckout;
+    }
 
 }
